@@ -7,14 +7,15 @@ import Button from "@/components/Button";
 import InputField from "@/components/Fieldset";
 import * as colorUtils from "@/utils/colorUtils";
 import { useEffect } from "react";
-import { HexColorPicker, HexColorInput } from "react-colorful";
+import { HexColorPicker } from "react-colorful";
+import { PaletteFunction } from "@/types";
 
 export default function Home() {
 
   const [colorsList, setColorsList] = useState<ColorData[]>([]);
 
   const [customColor, setCustomColor] = useState('#ff0000');
-  const [colorCardCounter, setColorCardCounter] = useState(0);
+const [colorCardCounter, setColorCardCounter] = useState<number>(0);
 
   useEffect(() => {
     addColorCards(3);
@@ -36,17 +37,14 @@ export default function Home() {
 
 
 
-  const generatePalette =
-    (paletteFn: (...args: any[]) => string,
-      ...args: any[]) => {
-      setColorsList(prevList =>
-        prevList.map(color => ({
-          ...color,
-          colorValue: paletteFn(...args),
-        }))
-      );
-    };
-
+const generatePalette = (paletteFn: PaletteFunction, baseColor?: string) => {
+  setColorsList(prevList =>
+    prevList.map(color => ({
+      ...color,
+      colorValue: baseColor ? paletteFn(baseColor) : (paletteFn as () => string)(),
+    }))
+  );
+};
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="flex flex-row soft center p-4">

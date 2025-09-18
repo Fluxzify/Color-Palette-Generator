@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://colorpalettehub.netlify.app"),
   title: "Color Palette Hub 🎨",
   description: "Generate random or custom color palettes and gradients easily.",
   keywords: ["colors", "palette", "gradients", "design", "art", "creative tools"],
   authors: [{ name: "Jose", url: "https://colorpalettehub.netlify.app" }],
-  themeColor: "#1a1a1a",
   openGraph: {
     title: "Color Palette Generator",
     description: "Create vibrant color palettes and gradients for your projects.",
@@ -34,12 +34,6 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Color Palette Generator",
-    description: "Create vibrant color palettes and gradients for your projects.",
-    images: ["/og-image.png"],
   },
 };
 

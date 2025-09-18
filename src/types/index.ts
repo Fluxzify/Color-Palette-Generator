@@ -23,3 +23,4 @@ export interface InputFieldProps<T> {
   placeholder?: string;
   validation?: React.InputHTMLAttributes<HTMLInputElement>; // nuevo
 }
+export type PaletteFunction = (() => string) | ((baseColor: string) => string);
