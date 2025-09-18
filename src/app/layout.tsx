@@ -42,29 +42,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-        <footer className="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
-<aside>
-  <div className="flex flex-row items-center">
-    <p>© {new Date().getFullYear()} - JosevDev</p>
-
-    <a
-      href="https://github.com/Fluxzify"
-      className="flex items-center gap-2 pl-4 hover:text-blue-500"
+ return (
+  <html lang="en">
+    <body
+      className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
     >
-      <MarkGithubIcon size={24} />
-      GitHub
-    </a>
-  </div>
-</aside>
-</footer>
-      </body>
-      
-    </html>
-  );
+      {/* Contenido principal (crece y empuja al footer abajo) */}
+      <main className="flex-1">
+        {children}
+      </main>
+
+      {/* Footer */}
+      <footer className="footer footer-center w-full bg-base-300 text-base-content p-4 mt-auto">
+        <aside>
+          <div className="flex flex-col sm:flex-row items-center">
+            <p>© {new Date().getFullYear()} - JosevDev</p>
+            <a
+              href="https://github.com/Fluxzify"
+              className="flex items-center gap-2 sm:pl-4 mt-2 sm:mt-0 hover:text-blue-500"
+            >
+              <MarkGithubIcon size={24} />
+              GitHub
+            </a>
+          </div>
+        </aside>
+      </footer>
+    </body>
+  </html>
+);
 }

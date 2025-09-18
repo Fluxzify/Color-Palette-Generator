@@ -33,10 +33,6 @@ const [colorCardCounter, setColorCardCounter] = useState<number>(0);
     });
   };
 
-
-
-
-
 const generatePalette = (paletteFn: PaletteFunction, baseColor?: string) => {
   setColorsList(prevList =>
     prevList.map(color => ({
@@ -46,8 +42,8 @@ const generatePalette = (paletteFn: PaletteFunction, baseColor?: string) => {
   );
 };
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <div className="flex flex-row soft center p-4">
+<div className="flex flex-col items-center min-h-screen px-2 sm:px-4 md:px-8">
+<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center p-4">
         <Button type="btn-soft btn-soft" text="Generate a cool color pallete" onClick={() => generatePalette(colorUtils.coolPalette)} />
         <Button type="btn-soft btn-soft" text="Generate a warm color pallete" onClick={() => generatePalette(colorUtils.warmPalette)} />
         <Button type="btn btn-soft btn-secondary" text="Generate a variety of palettes from a selected color" onClick={() => (document.getElementById('my_modal_5')! as HTMLDialogElement).showModal()}
@@ -59,7 +55,6 @@ const generatePalette = (paletteFn: PaletteFunction, baseColor?: string) => {
           <h3 className="font-bold text-lg">Choose a base color for your palette</h3>
           <p className="py-4">Press ESC key or click the button below to close</p>
              <form method="dialog">
-      {/* if there is a button in form, it will close the modal */}
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
 
@@ -82,13 +77,13 @@ const generatePalette = (paletteFn: PaletteFunction, baseColor?: string) => {
 
 
 
-      <div className="w-full max-h-150 flex flex-wrap gap-2 justify-center overflow-y-auto " >
+<div className="w-full flex flex-wrap gap-2 justify-center overflow-y-auto">
 
         {colorsList.map(color => (
           <Card key={color.id} colorValue={color.colorValue} />
         ))}
       </div>
-      <div className="flex flex-col pt-4 ">
+      <div className="flex flex-col sm:flex-row gap-2 pt-4 w-full max-w-md">
         <InputField
           type="number"
           value={colorCardCounter}

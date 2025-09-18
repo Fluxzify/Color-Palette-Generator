@@ -15,7 +15,7 @@ export default function Card({colorValue}: CardProps) {
     }
   };
 return(
-<div className="card-sm bg-white -100 w-96 shadow-sm " >
+<div className="card bg-white shadow-sm w-full sm:w-80 md:w-96">
   <div className="w-full h-48" style={{ backgroundColor: colorValue }}></div>
   <div className="card-body">
     <h2 className="card-title text-black">Color: {colorValue}</h2>
