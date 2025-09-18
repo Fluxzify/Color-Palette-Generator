@@ -14,15 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Color Palette Generator 🎨",
+  title: "Color Palette Hub 🎨",
   description: "Generate random or custom color palettes and gradients easily.",
   keywords: ["colors", "palette", "gradients", "design", "art", "creative tools"],
-  authors: [{ name: "Jose", url: "https://tusitio.com" }],
+  authors: [{ name: "Jose", url: "https://colorpalettehub.netlify.app" }],
   themeColor: "#1a1a1a",
   openGraph: {
     title: "Color Palette Generator",
     description: "Create vibrant color palettes and gradients for your projects.",
-    url: "https://tusitio.com",
+    url: "https://colorpalettehub.netlify.app",
     siteName: "Color Palette Generator",
     images: [
       {
