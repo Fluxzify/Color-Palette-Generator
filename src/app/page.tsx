@@ -6,12 +6,20 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import InputField from "@/components/Fieldset";
 import * as colorUtils from "@/utils/colorUtils";
+import { useEffect } from "react";
+import { HexColorPicker, HexColorInput } from "react-colorful";
+
 export default function Home() {
 
   const [colorsList, setColorsList] = useState<ColorData[]>([]);
 
-  const [color, setColor] = useState('#ff0000');
+  const [customColor, setCustomColor] = useState('#ff0000');
   const [colorCardCounter, setColorCardCounter] = useState(0);
+
+  useEffect(() => {
+    addColorCards(3);
+  }, []);
+
 
   const addColorCards = (newValue: number) => {
     if (newValue <= 0 || newValue > 10) return;
@@ -26,47 +34,63 @@ export default function Home() {
 
 
 
-  const generatePalette = (palette: string) => {
-    switch (palette) {
-      case "warm":
-        setColorsList(prevList =>
-          prevList.map(color => ({
-            ...color,
-            colorValue: colorUtils.warmPalette() 
-          }))
-        );
-        break;
 
-      case "cool":
-        setColorsList(prevList =>
-          prevList.map(color => ({
-            ...color,
-            colorValue: colorUtils.coolPalette() 
-          }))
-        );
-        break;
 
-      default:
-        console.warn("Palette type not recognized");
-        break;
-    }
-  };
+  const generatePalette =
+    (paletteFn: (...args: any[]) => string,
+      ...args: any[]) => {
+      setColorsList(prevList =>
+        prevList.map(color => ({
+          ...color,
+          colorValue: paletteFn(...args),
+        }))
+      );
+    };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <div className="flex flex-row justify center p-4">
-        <Button type="btn-soft btn-secondary " text="Generate a warm color pallete!" onClick={() => generatePalette("warm")} />
-        <Button type="btn-soft btn-info" text="Generate a cool color pallete!" onClick={() => generatePalette("cool")} />
+      <div className="flex flex-row soft center p-4">
+        <Button type="btn-soft btn-soft" text="Generate a cool color pallete" onClick={() => generatePalette(colorUtils.coolPalette)} />
+        <Button type="btn-soft btn-soft" text="Generate a warm color pallete" onClick={() => generatePalette(colorUtils.warmPalette)} />
+        <Button type="btn btn-soft btn-secondary" text="Generate a variety of palettes from a selected color" onClick={() => (document.getElementById('my_modal_5')! as HTMLDialogElement).showModal()}
+        />
       </div>
-      
 
-      <div className="w-full max-h-100 flex flex-wrap gap-2 justify-center overflow-y-auto " >
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Choose a base color for your palette</h3>
+          <p className="py-4">Press ESC key or click the button below to close</p>
+             <form method="dialog">
+      {/* if there is a button in form, it will close the modal */}
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+
+          <div className="flex items-center justify-center p-4">
+            <HexColorPicker color={customColor} onChange={setCustomColor} />
+          </div>
+
+          <div className="modal-action">
+            <form method="dialog">
+              <div className="flex justify-center pb-4 pr-10">
+                <Button type="btn-soft btn-soft w-48  " text="Gradient palette" onClick={() => generatePalette(colorUtils.gradientColor, customColor)} />
+                <Button type="btn-soft btn-soft w-48 " text="Complementary palette" onClick={() => generatePalette(colorUtils.complementaryColor, customColor)} />
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+
+
+      <div className="w-full max-h-150 flex flex-wrap gap-2 justify-center overflow-y-auto " >
 
         {colorsList.map(color => (
           <Card key={color.id} colorValue={color.colorValue} />
         ))}
       </div>
-      <div className="flex flex-col pt-4">
+      <div className="flex flex-col pt-4 ">
         <InputField
           type="number"
           value={colorCardCounter}
@@ -76,7 +100,8 @@ export default function Home() {
           validation={{ required: true, min: 1, max: 10, step: 1 }}
         />
 
-        <Button type="btn-soft btn-primary" text="Add more colors!" onClick={() => addColorCards(colorCardCounter)} />
+        <Button type="btn btn-soft btn-primary" text="Add more colors!" onClick={() => addColorCards(colorCardCounter)} />
+          
 
       </div>
     </div>
