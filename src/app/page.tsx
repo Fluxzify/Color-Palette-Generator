@@ -15,7 +15,7 @@ export default function Home() {
   const [colorsList, setColorsList] = useState<ColorData[]>([]);
 
   const [customColor, setCustomColor] = useState('#ff0000');
-const [colorCardCounter, setColorCardCounter] = useState<number>(0);
+const [colorCardCounter, setColorCardCounter] = useState("");
 
   useEffect(() => {
     addColorCards(3);
@@ -83,20 +83,27 @@ const generatePalette = (paletteFn: PaletteFunction, baseColor?: string) => {
           <Card key={color.id} colorValue={color.colorValue} />
         ))}
       </div>
-      <div className="flex flex-col sm:flex-row gap-2 pt-4 w-full max-w-md">
-        <InputField
-          type="number"
-          value={colorCardCounter}
-          onChange={setColorCardCounter}
-          placeholder="Number of color cards"
-          labelText="Enter the number of color cards to generate (Min 1, Max 10)"
-          validation={{ required: true, min: 1, max: 10, step: 1 }}
-        />
-
-        <Button type="btn btn-soft btn-primary" text="Add more colors!" onClick={() => addColorCards(colorCardCounter)} />
-          
-
-      </div>
+     <div className="flex flex-col sm:flex-row gap-2 pt-4 w-full max-w-md">
+  <InputField
+    type="text"
+    value={colorCardCounter}
+    onChange={setColorCardCounter}
+    placeholder="Number of color cards"
+    labelText="Enter the number of color cards (1-10)"
+  />
+  <Button
+    type="btn btn-soft btn-primary"
+    text="Add more colors!"
+    onClick={() => {
+      const num = parseInt(colorCardCounter, 10);
+      if (isNaN(num) || num < 1 || num > 10) {
+        alert("Enter a number between 1 and 10");
+        return;
+      }
+      addColorCards(num);
+    }}
+  />
+</div>
     </div>
 
 
